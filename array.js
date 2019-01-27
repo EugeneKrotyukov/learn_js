@@ -158,9 +158,34 @@ function eratosthenesSieve(n) {
       }
     }
   }
+  // сумма всех простых чисел до n
   return simple.reduce(function(sum, elem){
     return sum + elem;
   })   
 }
 
 console.log('Eratosthenes Sieve', eratosthenesSieve(100)); // для 100 - 1060
+
+
+function getMaxSubSum(arr) {
+  // Подмассив наибольшей суммы
+  // Будем идти по массиву и накапливать в некоторой переменной s текущую частичную сумму. 
+  // Если в какой-то момент s окажется отрицательной, то мы просто присвоим s=0. 
+  // Максимум из всех значений переменной s, случившихся за время работы, и будет ответом. 
+  let ans = arr[0];
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+    ans = Math.max(ans, sum);
+    sum = Math.max(sum, 0);
+    // console.log('i=', i, 'sum=', sum, 'ans=', ans);
+  }
+  return ans;
+}
+console.log('getMaxSubSum: ', getMaxSubSum([-1, 2, 3, -9])); // 5
+console.log('getMaxSubSum: ', getMaxSubSum([2, -1, 2, 3, -9])); // 6
+console.log('getMaxSubSum: ', getMaxSubSum([-1, 2, 3, -9, 11])); // 11
+console.log('getMaxSubSum: ', getMaxSubSum([-2, -1, 1, 2])); // 3
+console.log('getMaxSubSum: ', getMaxSubSum([100, -9, 2, -3, 5])); // 100
+console.log('getMaxSubSum: ', getMaxSubSum([1, 2, 3])); // 6
+console.log('getMaxSubSum: ', getMaxSubSum([-1, -2, -3])); // -1
