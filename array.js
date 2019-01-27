@@ -104,7 +104,7 @@ console.log(find(["test", 2, 1.5, false], "test"));
 console.log(find(["test", 2, 1.5, false], 1))
 
 
-function filterRange(arr, a, b) {
+function filterRangeFor(arr, a, b) {
   // возвращает новый массив, который содержит только числа из arr из диапазона от a до b
   let filtered = [];
   for (let i = 0; i < arr.length; i++) {
@@ -115,4 +115,24 @@ function filterRange(arr, a, b) {
   return filtered;
 }
 
-console.log(filterRange([5, 4, 3, 8, 0], 3, 5)); // теперь filtered = [5, 4, 3]
+function filterRangeEach(arr, a, b) {
+  // возвращает новый массив, который содержит только числа из arr из диапазона от a до b
+  let filtered = [];
+    arr.forEach(function(elem) {
+      if (elem >= a && elem <= b) {
+        filtered.push(elem);
+      } 
+    })
+  return filtered;
+}
+
+function filterRangeFilter(arr, a, b) {
+  // возвращает новый массив, который содержит только числа из arr из диапазона от a до b
+  return arr.filter(function(elem) {
+    return elem >= a && elem <= b;
+  });
+}
+
+console.log('filterRangeFor', filterRangeFor([5, 4, 3, 8, 0], 3, 5)); // теперь filtered = [5, 4, 3]
+console.log('filterRangeEach', filterRangeEach([5, 4, 3, 8, 0], 3, 5));
+console.log('filterRangeFilter', filterRangeFilter([5, 4, 3, 8, 0], 3, 5));
