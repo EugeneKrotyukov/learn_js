@@ -136,3 +136,31 @@ function filterRangeFilter(arr, a, b) {
 console.log('filterRangeFor', filterRangeFor([5, 4, 3, 8, 0], 3, 5)); // теперь filtered = [5, 4, 3]
 console.log('filterRangeEach', filterRangeEach([5, 4, 3, 8, 0], 3, 5));
 console.log('filterRangeFilter', filterRangeFilter([5, 4, 3, 8, 0], 3, 5));
+
+
+function eratosthenesSieve(n) {
+  // решето Эратосфена до n включительно
+  let simple = []; 
+  // список последовательных чисел от 2 до n
+  for (let i = 2; i <= n; i++) {
+      simple.push(i);
+    }
+  // взять первое число
+  for (let i = 0; i < n; i++) {
+    let p = simple[i];
+    if (Boolean(p)) {
+      //  все числа 2*р, 3*р и т.д. обнулить
+      for (let j = 2; j*p <= n; j++) {
+        let index = simple.indexOf(j*p);
+        if (index > 0) {
+          simple[index] = 0;
+        }
+      }
+    }
+  }
+  return simple.reduce(function(sum, elem){
+    return sum + elem;
+  })   
+}
+
+console.log('Eratosthenes Sieve', eratosthenesSieve(100)); // для 100 - 1060
