@@ -105,7 +105,8 @@ console.log(find(["test", 2, 1.5, false], 1))
 
 
 function filterRange(arr, a, b) {
-  // возвращает новый массив, который содержит только числа из arr из диапазона от a до b
+  // возвращает новый массив, который содержит числа из диапазона от a до b
+  // Imperative approach
   let filtered = [];
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] >= a && arr[i] <= b) {
@@ -114,5 +115,19 @@ function filterRange(arr, a, b) {
   }
   return filtered;
 }
+console.log(filterRange([5, 4, 3, 8, 0], 3, 5)); // [5, 4, 3]
 
-console.log(filterRange([5, 4, 3, 8, 0], 3, 5)); // теперь filtered = [5, 4, 3]
+
+console.log('--------------------------------------------');
+
+//Declarative approach
+
+function filterArray(arr, a, b) {
+  arr.filter(function(elem) {
+    console.log(a, b, elem);
+    return (elem >= a && elem <= b);
+  })
+  return arr;
+}
+
+console.log(filterArray([5, 4, 3, 8, 0], 3, 5)); // [5, 4, 3]
