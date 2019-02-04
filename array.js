@@ -104,30 +104,92 @@ console.log(find(["test", 2, 1.5, false], "test"));
 console.log(find(["test", 2, 1.5, false], 1))
 
 
-function filterRange(arr, a, b) {
-  // возвращает новый массив, который содержит числа из диапазона от a до b
-  // Imperative approach
+
+function filterRangeFor(arr, a, b) {
+  // возвращает новый массив, который содержит только числа из arr из диапазона от a до b
+>>>>>>> 758867d534ef65a0a6941bc77c74413cffb60bfc
   let filtered = [];
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] >= a && arr[i] <= b) {
       filtered.push(arr[i]);
-    } 
+    }
   }
   return filtered;
 }
-console.log(filterRange([5, 4, 3, 8, 0], 3, 5)); // [5, 4, 3]
 
 
-console.log('--------------------------------------------');
-
-//Declarative approach
-
-function filterArray(arr, a, b) {
-  arr.filter(function(elem) {
-    console.log(a, b, elem);
-    return (elem >= a && elem <= b);
-  })
-  return arr;
+function filterRangeEach(arr, a, b) {
+  // возвращает новый массив, который содержит только числа из arr из диапазона от a до b
+  let filtered = [];
+    arr.forEach(function(elem) {
+      if (elem >= a && elem <= b) {
+        filtered.push(elem);
+      } 
+    })
+  return filtered;
 }
 
-console.log(filterArray([5, 4, 3, 8, 0], 3, 5)); // [5, 4, 3]
+function filterRangeFilter(arr, a, b) {
+  // возвращает новый массив, который содержит только числа из arr из диапазона от a до b
+  return arr.filter(function(elem) {
+    return elem >= a && elem <= b;
+  });
+}
+
+console.log('filterRangeFor', filterRangeFor([5, 4, 3, 8, 0], 3, 5)); // теперь filtered = [5, 4, 3]
+console.log('filterRangeEach', filterRangeEach([5, 4, 3, 8, 0], 3, 5));
+console.log('filterRangeFilter', filterRangeFilter([5, 4, 3, 8, 0], 3, 5));
+
+
+function eratosthenesSieve(n) {
+  // решето Эратосфена до n включительно
+  let simple = []; 
+  // список последовательных чисел от 2 до n
+  for (let i = 2; i <= n; i++) {
+      simple.push(i);
+    }
+  // взять первое число
+  for (let i = 0; i < n; i++) {
+    let p = simple[i];
+    if (Boolean(p)) {
+      //  все числа 2*р, 3*р и т.д. обнулить
+      for (let j = 2; j*p <= n; j++) {
+        let index = simple.indexOf(j*p);
+        if (index > 0) {
+          simple[index] = 0;
+        }
+      }
+    }
+  }
+  // сумма всех простых чисел до n
+  return simple.reduce(function(sum, elem){
+    return sum + elem;
+  })   
+}
+
+console.log('Eratosthenes Sieve', eratosthenesSieve(100)); // для 100 - 1060
+
+
+function getMaxSubSum(arr) {
+  // Подмассив наибольшей суммы
+  // Будем идти по массиву и накапливать в некоторой переменной s текущую частичную сумму. 
+  // Если в какой-то момент s окажется отрицательной, то мы просто присвоим s=0. 
+  // Максимум из всех значений переменной s, случившихся за время работы, и будет ответом. 
+  let ans = arr[0];
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+    ans = Math.max(ans, sum);
+    sum = Math.max(sum, 0);
+    // console.log('i=', i, 'sum=', sum, 'ans=', ans);
+  }
+  return ans;
+}
+console.log('getMaxSubSum: ', getMaxSubSum([-1, 2, 3, -9])); // 5
+console.log('getMaxSubSum: ', getMaxSubSum([2, -1, 2, 3, -9])); // 6
+console.log('getMaxSubSum: ', getMaxSubSum([-1, 2, 3, -9, 11])); // 11
+console.log('getMaxSubSum: ', getMaxSubSum([-2, -1, 1, 2])); // 3
+console.log('getMaxSubSum: ', getMaxSubSum([100, -9, 2, -3, 5])); // 100
+console.log('getMaxSubSum: ', getMaxSubSum([1, 2, 3])); // 6
+console.log('getMaxSubSum: ', getMaxSubSum([-1, -2, -3])); // -1
+>>>>>>> 758867d534ef65a0a6941bc77c74413cffb60bfc
