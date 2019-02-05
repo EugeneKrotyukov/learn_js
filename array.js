@@ -243,3 +243,16 @@ addClass(obj, 'open');
 console.log(obj);
 addClass(obj, 'me')
 console.log(obj);
+
+
+function camelize(str) {
+  //преобразует строки вида «my-short-string» в «myShortString»
+  let arr = str.split('-');
+  arr.forEach(function(elem) {
+    elem.charAt(0).toUpperCase() + elem.slice(1);
+  })
+  return arr.join('');
+}
+console.log(camelize("background-color")); // backgroundColor
+console.log(camelize("list-style-image")); // listStyleImage
+console.log(camelize("-webkit-transition")); // WebkitTransition
