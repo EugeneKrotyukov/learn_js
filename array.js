@@ -17,31 +17,60 @@ let matrix = [
   [4, 5, 6],
   [7, 8, 9]
 ];
-console.log(matrix);
+console.log('matrix', matrix);
 
 arr = [1, 2, 3, 4, 5];
 // length - не количество элементов массива, а последний индекс + 1
-console.log(arr.length);
+console.log('length', arr.length);
 // усечение массива
 arr.length = 2; // укоротить до 2 элементов
-console.log(arr);
+console.log('length', arr);
 arr.length = 5;
-console.log(arr[4]); // undefined: значения не вернулись
+console.log('length', arr[4]); // undefined: значения не вернулись
 
 let fruits = ["Яблоко", "Апельсин", "Груша"];
 // pop - удаляет последний элемент из массива и возвращает его
 let last = fruits.pop()
-console.log(last); 
-console.log(fruits);
+console.log('pop', last); 
+console.log('pop', fruits);
 // push - добавляет элемент в конец массива (можно добавлять сразу по несколько элементов)
 fruits.push("Груша");
-console.log(fruits);
+console.log('push', fruits);
 // shift - удаляет из массива первый элемент и возвращает его
 let first = fruits.shift();
-console.log(fruits);
+console.log('shift', fruits);
 // unshift - добавляет элемент в начало массива (можно добавлять сразу по несколько элементов)
 fruits.unshift('Яблоко');
-console.log(fruits);
+console.log('unshift', fruits);
+//join - склеивает массив в строку, используя разделитель
+let s = fruits.join(';')
+console.log('join', s);
+// split - превратить строку в массив, разбив ее по разделителю
+console.log('split', s.split(';'));
+console.log('split', "тест".split(''));
+// splice – удалять элементы, вставлять элементы, заменять элементы
+  // arr.splice(indexDel, numberDel, elem1, ...)
+  // indexDel - индекс элемента с которого удалять
+  // numberDel - кол-во элементов для удаления
+  // elem1 - элемент вставить
+// slice(begin, end) - опирует участок массива от begin до end, не включая end
+let fruits2 = fruits.slice(1, 3); // элементы 1, 2 (не включая 3)
+console.log('slice', fruits2);
+// sort - сортирует массив на месте
+let arr2 = [1, 2, 15]
+console.log('sort', arr2.sort());
+
+function compareNumeric(a, b) {
+  return a - b;
+}
+console.log('sort', arr2.sort(compareNumeric));
+// reverse - меняет порядок элементов в массиве на обратный.
+console.log('reverse', arr2.reverse());
+// concat(value1, value2, … valueN) создаёт новый массив, в который копируются элементы из arr, а также value1, value2, ... valueN.
+console.log('concat', arr2.concat(3, 4));
+// indexOf/lastIndexOf(earchElement, fromIndex)  возвращает номер элемента в массиве или -1, если его нет.
+  // fromIndex Поиск начинается с номера
+console.log('indexOf', arr2.indexOf(3)); 
 
 // Перебор элементов
 for (let i = 0; i < fruits.length; i++) {
@@ -107,7 +136,6 @@ console.log(find(["test", 2, 1.5, false], 1))
 
 function filterRangeFor(arr, a, b) {
   // возвращает новый массив, который содержит только числа из arr из диапазона от a до b
->>>>>>> 758867d534ef65a0a6941bc77c74413cffb60bfc
   let filtered = [];
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] >= a && arr[i] <= b) {
@@ -192,4 +220,26 @@ console.log('getMaxSubSum: ', getMaxSubSum([-2, -1, 1, 2])); // 3
 console.log('getMaxSubSum: ', getMaxSubSum([100, -9, 2, -3, 5])); // 100
 console.log('getMaxSubSum: ', getMaxSubSum([1, 2, 3])); // 6
 console.log('getMaxSubSum: ', getMaxSubSum([-1, -2, -3])); // -1
->>>>>>> 758867d534ef65a0a6941bc77c74413cffb60bfc
+
+
+function addClass(obj, cls) {
+  // добавляет в список класс cls, но только если его там еще нет
+  arr = obj.className.split(' ');
+  if (arr.indexOf(cls) >= 0) {
+  } else {
+    arr.push(cls);
+    obj.className = arr.join(' ');    
+  }
+  return obj.className; 
+}
+
+var obj = {
+  className: 'open menu'
+}
+console.log(obj);
+addClass(obj, 'new');
+console.log(obj);
+addClass(obj, 'open');
+console.log(obj);
+addClass(obj, 'me')
+console.log(obj);
