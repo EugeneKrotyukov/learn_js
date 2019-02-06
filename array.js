@@ -245,14 +245,48 @@ addClass(obj, 'me')
 console.log(obj);
 
 
-function camelize(str) {
+function camelizeEach(str) {
   //преобразует строки вида «my-short-string» в «myShortString»
-  let arr = str.split('-');
-  arr.forEach(function(elem) {
-    elem.charAt(0).toUpperCase() + elem.slice(1);
+  let arrIn = str.split('-');
+  let arrOut = [];
+    arrIn.forEach(function(elem) { 
+    arrOut.push(elem.charAt(0).toUpperCase() + elem.slice(1));
   })
-  return arr.join('');
+  return arrOut.join('');
 }
-console.log(camelize("background-color")); // backgroundColor
-console.log(camelize("list-style-image")); // listStyleImage
-console.log(camelize("-webkit-transition")); // WebkitTransition
+console.log('camelizeEach', camelizeEach("background-color")); // backgroundColor
+console.log('camelizeEach', camelizeEach("list-style-image")); // listStyleImage
+console.log('camelizeEach', camelizeEach("-webkit-transition")); // WebkitTransition
+
+function camelizeFor(str) {
+  //преобразует строки вида «my-short-string» в «myShortString»
+  let arrIn = str.split('-');
+    for (let i = 0; i < arrIn.length; i++) {
+      arrIn[i] = arrIn[i].charAt(0).toUpperCase() + arrIn[i].slice(1);
+    }
+  return arrIn.join('');
+}
+console.log('camelizeFor', camelizeFor("background-color")); // backgroundColor
+console.log('camelizeFor', camelizeFor("list-style-image")); // listStyleImage
+console.log('camelizeFor', camelizeFor("-webkit-transition")); // WebkitTransition
+
+
+function removeClass(obj, cls) {
+  // удаляет класс cls, если он есть
+  let classes = obj.className.split(' ');
+  for (let i = 0; i < classes.length; i++) {
+     if (classes[i] == cls) {
+      classes.splice(i, 1); // удалить класс
+      i--;
+    }
+  }
+  obj.className = classes.join(' ');
+  return obj.className; 
+}
+
+obj = {
+  className: 'my menu menu open'
+};
+console.log('removeClass', removeClass(obj, 'blabla')); // без изменений
+console.log('removeClass', removeClass(obj, 'open')); // obj.className='my menu menu'
+console.log('removeClass', removeClass(obj, 'menu')); // 'my'
