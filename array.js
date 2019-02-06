@@ -314,3 +314,32 @@ function compareNumericReversed(a, b) {
 }
 let arr3 = [5, 2, 1, -10, 8];
 console.log('sortRevers', arr3.sort(compareNumericReversed)); // 8, 5, 2, 1, -10
+
+
+// скопировать и отсортировать массив
+const arr4 = ["HTML", "JavaScript", "CSS"];
+const arrSorted = arr4.slice().sort();
+console.log('Входной массив', arr4);
+console.log('Скопированный и отсортированный', arrSorted);
+
+
+
+function shuffle(arr){
+  //  алгоритма Фишера-Йетса случайной перестановки элементов массива
+  let j, temp;
+  for(let i = arr.length - 1; i > 0; i--){
+    j = Math.floor(Math.random()*(i + 1));
+    temp = arr[j];
+    arr[j] = arr[i];
+    arr[i] = temp;
+  }
+  return arr;
+}
+let arr5 = [-1, 0, 1, 2, 3, 4, 5];
+console.log('shuffle', shuffle(arr5));
+
+function compareRandom(a, b) {
+  // «перетрясти» элементы массива в случайном порядке
+  return Math.random() - 0.5;
+}
+console.log('compareRandom', arr5.sort(compareRandom));
