@@ -290,3 +290,27 @@ obj = {
 console.log('removeClass', removeClass(obj, 'blabla')); // без изменений
 console.log('removeClass', removeClass(obj, 'open')); // obj.className='my menu menu'
 console.log('removeClass', removeClass(obj, 'menu')); // 'my'
+
+
+function filterRangeInPlace(arr, a, b) {
+  // удаляет из массива все числа вне диапазона a..b
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] >= a && arr[i] <= b) {
+    } else {
+      arr.splice(i, 1); // удалить элемент
+      i--;
+    }
+  }
+}
+
+let arrIn = [-1, 0, 1, 2, 3, 4, 5, 6];
+console.log('Входной массив', arrIn);
+filterRangeInPlace(arrIn, 2, 4);
+console.log('Массив после фильтрации', arrIn);
+
+
+function compareNumericReversed(a, b) {
+  return b - a;
+}
+let arr3 = [5, 2, 1, -10, 8];
+console.log('sortRevers', arr3.sort(compareNumericReversed)); // 8, 5, 2, 1, -10
