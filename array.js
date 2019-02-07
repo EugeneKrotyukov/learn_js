@@ -343,3 +343,19 @@ function compareRandom(a, b) {
   return Math.random() - 0.5;
 }
 console.log('compareRandom', arr5.sort(compareRandom));
+
+
+
+function compareAge(personA, personB) {
+  // отсортирует массив объектов people по полю age
+  return personA.age - personB.age;
+}
+
+const vasya = { name: "Вася", age: 23 };
+const masha = { name: "Маша", age: 18 };
+const vovochka = { name: "Вовочка", age: 6 };
+let people = [ vasya , masha , vovochka ];
+people.sort(compareAge);
+for(let i = 0; i < people.length; i++) {
+  console.log('compareAge', people[i].name); // Вовочка Маша Вася
+}
