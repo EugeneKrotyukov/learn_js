@@ -392,3 +392,18 @@ function acleanObj(arr) {
 }
 let arrAn = ["воз", "киборг", "корсет", "ЗОВ", "гробик", "костер", "сектор"];
 console.log('acleanObj', acleanObj(arrAn));
+
+
+
+function unique(arr) {
+  // возвращает массив, содержащий только уникальные элементы 
+  let obj = {};
+  for (let i = 0; i < arr.length; i++) {
+    let elem = arr[i].toLowerCase();
+    obj[elem] = arr[i];
+  }
+  return Object.keys(obj);
+}
+
+let strings = ["кришна", "кришна", "харе", "харе", "харе", "харе", "кришна", "кришна", "8-()"];
+console.log('unique', unique(strings)); // кришна, харе, 8-()
