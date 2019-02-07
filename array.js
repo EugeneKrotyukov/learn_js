@@ -376,3 +376,19 @@ function printListFor(list) {
   }
 }
 printListFor(list);
+
+
+
+function acleanObj(arr) {
+  // Отфильтровать анаграммы
+  let obj = {};
+  for (let i = 0; i < arr.length; i++) {
+    let sorted = arr[i].toLowerCase().split('').sort().join('');
+    obj[sorted] = arr[i];
+  }
+  let result = [];
+  for (let key in obj) result.push(obj[key]);
+  return result;
+}
+let arrAn = ["воз", "киборг", "корсет", "ЗОВ", "гробик", "костер", "сектор"];
+console.log('acleanObj', acleanObj(arrAn));
