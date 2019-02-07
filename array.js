@@ -48,12 +48,12 @@ console.log('join', s);
 // split - превратить строку в массив, разбив ее по разделителю
 console.log('split', s.split(';'));
 console.log('split', "тест".split(''));
-// splice – удалять элементы, вставлять элементы, заменять элементы
+// splice – удалять, вставлять, заменять элементы
   // arr.splice(indexDel, numberDel, elem1, ...)
   // indexDel - индекс элемента с которого удалять
   // numberDel - кол-во элементов для удаления
   // elem1 - элемент вставить
-// slice(begin, end) - опирует участок массива от begin до end, не включая end
+// slice(begin, end) - копирует участок массива от begin до end, не включая end
 let fruits2 = fruits.slice(1, 3); // элементы 1, 2 (не включая 3)
 console.log('slice', fruits2);
 // sort - сортирует массив на месте
@@ -77,6 +77,68 @@ for (let i = 0; i < fruits.length; i++) {
   console.log(fruits[i]);
 }
 
+// forEach - перебор массива.
+fruits.forEach(function(item, i, arr) {
+  console.log('forEach', i + ": " + item + " (массив:" + arr + ")" );
+});
+
+// filter - создаёт новый массив, в который войдут только те элементы arr, для которых вызов callback(item, i, arr) возвратит true
+let arrNum = [1, -1, 2, -2, 3];
+let positiveArr = arrNum.filter(function(number) {
+  return number > 0;
+});
+console.log('filter', positiveArr); // 1,2,3
+
+// map - новый массив, который будет состоять из результатов вызова callback(item, i, arr) для каждого элемента
+let names = ['HTML', 'CSS', 'JavaScript'];
+let nameLengths = names.map(function(name) {
+  return name.length;
+});
+console.log('nameLengths', nameLengths); // 4,3,10
+
+// every - возвращает true, если вызов callback вернёт true для каждого элемента arr
+// some - возвращает true, если вызов callback вернёт true для какого-нибудь элемента ar
+function isPositive(number) {
+  return number > 0;
+}
+
+function testEvery(param) {
+  if (param) {
+    return 'все положительные'
+  } else {
+     return 'не все положительные' 
+  }
+}
+
+function testSome(param) {
+  if (param) {
+    return 'хоть одно положительное'
+  } else {
+     return 'все отрицательные' 
+  }
+}
+
+console.log('every', testEvery(arrNum.every(isPositive)));
+console.log('some', testSome(arrNum.some(isPositive)));
+
+/*
+reduce/reduceRight - свёртка массива
+
+arr.reduce(callback[, initialValue])»
+  callback(previousValue, currentItem, index, arr)
+    previousValue – последний результат вызова функции, он же «промежуточный результат».
+    currentItem – текущий элемент массива, элементы перебираются по очереди слева-направо.
+    index – номер текущего элемента.
+    arr – обрабатываемый массив.
+    initialValue - начальное значение 
+*/
+let arrReduce = [1, 2, 3, 4, 5]
+let result = arrReduce.reduce(function(sum, current) {
+  return sum + current;
+}, 0);
+console.log('reduce', result); // 15
+
+
 function random_value(arr) {
   // случайное значение из массива
   const min = 0;
@@ -84,7 +146,8 @@ function random_value(arr) {
   const rand = min + Math.floor(Math.random() * (max + 1 - min)); // случайного целого от min to max включительно
   return arr[rand];  
 }
-console.log(random_value([1, 2, 3, 4, 5, 6, 7, 8, 9]));
+console.log('random_value', random_value([1, 2, 3, 4, 5, 6, 7, 8, 9]));
+
 
 
 
@@ -407,3 +470,27 @@ function unique(arr) {
 
 let strings = ["кришна", "кришна", "харе", "харе", "харе", "харе", "кришна", "кришна", "8-()"];
 console.log('unique', unique(strings)); // кришна, харе, 8-()
+
+
+
+// map:  из массива строк получить новый массив, содержащий их длины
+let strings2 = ["Есть", "жизнь", "на", "Марсе"];
+let strLengths = strings2.map(function(str) {
+  return str.length;
+});
+console.log('map: strings Lengths', strLengths); // 4,5,2,5
+
+
+
+function getSums(arr) {
+  // возвращает массив частичных сумм
+  let result = [];
+  //if (!arr.length) return result;
+  let totalSum = arr.reduce(function(sum, current) {
+    result.push(sum);
+    return sum + current;
+  });
+  result.push(totalSum);
+  return result;
+}
+console.log('reduce: getSums', getSums([ 1, 2, 3, 4, 5 ])); // [ 1,3,6,10,15]
