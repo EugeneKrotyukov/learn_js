@@ -359,3 +359,20 @@ people.sort(compareAge);
 for(let i = 0; i < people.length; i++) {
   console.log('compareAge', people[i].name); // Вовочка Маша Вася
 }
+
+
+
+let list = { value: 1 };
+list.next = { value: 2 };
+list.next.next = { value: 3 };
+list.next.next.next = { value: 4 };
+
+function printListFor(list) {
+  // выводит элементы списка по очереди, при помощи цикла
+  let tmp = list;
+  while (tmp) {
+    console.log('printListFor', tmp.value);
+    tmp = tmp.next;
+  }
+}
+printListFor(list);
