@@ -494,3 +494,29 @@ function getSums(arr) {
   return result;
 }
 console.log('reduce: getSums', getSums([ 1, 2, 3, 4, 5 ])); // [ 1,3,6,10,15]
+
+
+// Псевдомассив аргументов "arguments"
+
+function f(x) {
+  // выведите 1, если первый аргумент есть, и 0 - если нет
+  if (arguments.length === 0) {
+    return 0;
+  } else {
+    return 1;
+  }
+}
+
+console.log('arguments 1', f(undefined)); // 1
+console.log('arguments 0', f()); // 0
+
+
+function sumArg() {
+  // возвращает сумму всех своих аргументов
+  let sum = 0;
+  for (let i = 0; i < arguments.length; i++) {
+    sum += arguments[i];
+  }
+  return sum;
+}
+console.log('sumArg', sumArg(1, 2));
