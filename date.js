@@ -105,3 +105,26 @@ var date = new Date(2015, 0, 2);
 console.log('getDateAgo', getDateAgo(date, 1) ); // 1, (1 января 2015)
 console.log('getDateAgo', getDateAgo(date, 2) ); // 31, (31 декабря 2014)
 console.log('getDateAgo', getDateAgo(date, 365) ); // 2, (2 января 2014)
+
+
+function getLastDayOfMonth(year, month) {
+	// последний день месяца
+	// year – 4-значный год
+	// month – месяц от 1 до 12
+	let date = new Date(year, month, 0);
+	return date.getDate();
+}
+console.log('getLastDayOfMonth', getLastDayOfMonth(2019, 2));
+
+
+let newTimeTomorrow = function() {
+	// сколько часов и минут осталось до завтра
+	let dateNow = new Date();
+	let dateTomorrow = new Date(2019, 4, 7, 23, 59, 59);
+	return {
+		hour: dateTomorrow.getHours() - dateNow.getHours(),
+		minute: dateTomorrow.getMinutes() - dateNow.getMinutes()
+	}; 
+}
+let timeTomorrow = newTimeTomorrow();
+console.log('До завтра осталось ', timeTomorrow.hour, ' часов ', timeTomorrow.minute, ' минут');
