@@ -81,6 +81,15 @@ function getWeekDay(date) {
   days = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
   return days[date.getDay()];
 }
-let date = new Date(2019,1,8);  // 8 февраля 2019
+var date = new Date(2019,1,8);  // 8 февраля 2019
 console.log('getWeekDay', getWeekDay(date));  // 'пт'
 console.log('toLocaleString', date.toLocaleString('ru', {weekday: 'short'})); // 'Пт'
+
+function getLocalDay(date) {
+	// возвращает день недели для даты date
+	// День нужно возвратить в европейской нумерации, т.е. пн номер 1
+	return date.getDay() ? date.getDay() : 7;
+}
+
+var date = new Date(2019, 4, 12);  // 12 мая 2019
+console.log('getLocalDay', getLocalDay(date));   // вторник, выведет 2
