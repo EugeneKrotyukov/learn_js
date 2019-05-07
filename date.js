@@ -117,14 +117,26 @@ function getLastDayOfMonth(year, month) {
 console.log('getLastDayOfMonth', getLastDayOfMonth(2019, 2));
 
 
-let newTimeTomorrow = function() {
+function getTimeToday() {
+	// сколько часов и минут прошло с начала дня
+	let dateNow = new Date();
+	return {
+		hour: dateNow.getHours(),
+		minute: dateNow.getMinutes()
+	};
+} 
+let timeToday = getTimeToday();
+console.log('С начала дня прошло ', timeToday.hour, ' часов ', timeToday.minute, ' минут');
+
+
+function getTimeTomorrow() {
 	// сколько часов и минут осталось до завтра
 	let dateNow = new Date();
 	let dateTomorrow = new Date(2019, 4, 7, 23, 59, 59);
 	return {
 		hour: dateTomorrow.getHours() - dateNow.getHours(),
 		minute: dateTomorrow.getMinutes() - dateNow.getMinutes()
-	}; 
-}
-let timeTomorrow = newTimeTomorrow();
+	};
+} 
+let timeTomorrow = getTimeTomorrow();
 console.log('До завтра осталось ', timeTomorrow.hour, ' часов ', timeTomorrow.minute, ' минут');
