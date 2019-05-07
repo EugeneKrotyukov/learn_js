@@ -85,11 +85,23 @@ var date = new Date(2019,1,8);  // 8 февраля 2019
 console.log('getWeekDay', getWeekDay(date));  // 'пт'
 console.log('toLocaleString', date.toLocaleString('ru', {weekday: 'short'})); // 'Пт'
 
+
 function getLocalDay(date) {
-	// возвращает день недели для даты date
-	// День нужно возвратить в европейской нумерации, т.е. пн номер 1
+	// День недели в европейской нумерации
 	return date.getDay() ? date.getDay() : 7;
 }
-
 var date = new Date(2019, 4, 12);  // 12 мая 2019
 console.log('getLocalDay', getLocalDay(date));   // вторник, выведет 2
+
+
+function getDateAgo(date, dayAgo) {
+	// День указанное количество дней назад
+	// исходный объект даты не должен меняться
+	let dateCopy = new Date(date);
+	dateCopy.setDate(date.getDate() - dayAgo);
+	return dateCopy.getDate();
+}
+var date = new Date(2015, 0, 2);
+console.log('getDateAgo', getDateAgo(date, 1) ); // 1, (1 января 2015)
+console.log('getDateAgo', getDateAgo(date, 2) ); // 31, (31 декабря 2014)
+console.log('getDateAgo', getDateAgo(date, 365) ); // 2, (2 января 2014)
