@@ -140,3 +140,20 @@ function getTimeTomorrow() {
 } 
 let timeTomorrow = getTimeTomorrow();
 console.log('До завтра осталось ', timeTomorrow.hour, ' часов ', timeTomorrow.minute, ' минут');
+
+
+function formatDate(dateStr){
+	// преобразовывает строку 'д.м.гггг.' в объект Date
+	let dateAr = dateStr.split(' ');
+	const months = ['январ', 'феврал', 'март', 'апрел', 'ма', 'июн', 'июл', 'август', 'сентябр', 'октябр', 'ноябр', 'декабр']; 
+	let monthAr = dateAr[1].split('');
+	monthAr.pop();
+	monthStr = monthAr.join('');
+	let month = months.indexOf(monthStr);
+	let day = Number(dateAr[0]) + 1;
+	return new Date(dateAr[2], month, day);
+}
+console.log('formatDate', formatDate('9 мая 2019'));
+
+
+
