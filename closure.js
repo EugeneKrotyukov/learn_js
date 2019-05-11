@@ -52,3 +52,36 @@ function sum(a){
   };
 }
 console.log('Sum: ', sum(2)(3));
+
+
+
+function makeBuffer(){
+  // строковый буфер
+  // buffer(value) - добавляет значение
+  // buffer() – возвращает содержимое буфера
+  let stringBuffer = "";
+  
+  function buffer (value){
+    if (arguments.length !== 0){
+      return stringBuffer += value;
+    };
+    return stringBuffer;
+  };
+        
+  buffer.clear = function(){
+  	// очистить буфер
+    stringBuffer = "";
+  };
+  return buffer;
+}
+
+// Создание объекта
+let buffer = makeBuffer();
+// добавить значения к буферу
+buffer('Замыкания');
+buffer(' Использовать');
+buffer(' Нужно!');
+// получить текущее значение
+console.log('Содержимое буфера: ', buffer()); // Замыкания Использовать Нужно!
+buffer.clear();
+console.log('Содержимое буфера: ', buffer());
