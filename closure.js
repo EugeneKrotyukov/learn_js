@@ -57,15 +57,15 @@ console.log('Sum: ', sum(2)(3));
 
 function makeBuffer(){
   // строковый буфер
-  // buffer(value) - добавляет значение
-  // buffer() – возвращает содержимое буфера
   let stringBuffer = "";
   
   function buffer (value){
     if (arguments.length !== 0){
-      return stringBuffer += value;
+    	// buffer(value) - добавляет значение в буфер
+      return stringBuffer += value; 
     };
-    return stringBuffer;
+    // buffer() – возвращает содержимое буфера
+    return stringBuffer; 
   };
         
   buffer.clear = function(){
@@ -83,5 +83,59 @@ buffer(' Использовать');
 buffer(' Нужно!');
 // получить текущее значение
 console.log('Содержимое буфера: ', buffer()); // Замыкания Использовать Нужно!
+// очистить буфер
 buffer.clear();
 console.log('Содержимое буфера: ', buffer());
+
+
+
+// Сортировка объекта по заданному полю 
+
+// создать объект
+let users = [{
+  name: "Вася",
+  surname: 'Иванов',
+  age: 20
+}, {
+  name: "Петя",
+  surname: 'Чапаев',
+  age: 25
+}, {
+  name: "Маша",
+  surname: 'Медведева',
+  age: 18
+}];
+
+// вариант1: сортировка по полю name
+users.sort(function(a, b) {
+  return a.name > b.name ? 1 : -1;
+});
+users.forEach(function(user) {
+  console.log('v11 сортировка по name ', user.name);
+}); // Вася, Маша, Петя
+
+// вариант1: сортировка по полю age
+users.sort(function(a, b) {
+  return a.age > b.age ? 1 : -1;
+});
+users.forEach(function(user) {
+  console.log('v12 сортировка по age ', user.name);
+}); // Маша, Вася, Петя
+
+
+function byField(fild) {
+  return function(a, b) {
+    return a[fild] > b[fild] ? 1 : -1;	
+  };
+}
+// вариант2: сортировка по полю name
+users.sort(byField('name'));
+users.forEach(function(user) {
+  console.log('v21 сортировка по name ', user.name);
+}); // Вася, Маша, Петя
+
+// вариант2: сортировка по полю age
+users.sort(byField('age'));
+users.forEach(function(user) {
+  console.log('v22 сортировка по name ', user.name);
+}); // Вася, Маша, Петя
