@@ -139,3 +139,36 @@ users.sort(byField('age'));
 users.forEach(function(user) {
   console.log('v22 сортировка по name ', user.name);
 }); // Вася, Маша, Петя
+
+
+
+// Фильтрация через функцию
+
+function filter(arr, func) {
+  // получает массив и возвращает новый, в который входят только те элементы, для которых func возвращает true
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (func(arr[i])) {
+      result.push(arr[i]);
+    }
+  }
+  return result;
+}
+
+function inBeetween(start, end) {
+  // между start и end
+  return function(elemInArrForFilter) {
+    return elemInArrForFilter >= start && elemInArrForFilter <= end;
+  };
+}
+
+function inArray(arr) {
+  // равные массиву arr
+  return function(elemInArrForFilter) {
+    return arr.indexOf(elemInArrForFilter) != -1;
+  };
+}
+
+let arrForFilter = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+console.log('inBeetween', filter(arrForFilter, inBeetween(3, 6))); // 3,4,5,6
+console.log('inArray', filter(arrForFilter, inArray([1, 2, 10]))); // 1,2
