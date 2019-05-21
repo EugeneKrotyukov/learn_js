@@ -172,3 +172,24 @@ function inArray(arr) {
 let arrForFilter = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 console.log('inBeetween', filter(arrForFilter, inBeetween(3, 6))); // 3,4,5,6
 console.log('inArray', filter(arrForFilter, inArray([1, 2, 10]))); // 1,2
+
+
+
+function makeArmy() {
+  // Армия стрелков
+  // каждый стрелок должен выводить свой номер
+  // работает только через let
+  // чтобы работал с var нужно использовать дополнительную функцию для того, чтобы «поймать» текущее значение i
+  let shooters = [];
+  for (let i = 0; i < 10; i++) {
+    let shooter = function() {
+      console.log('номер стрелка ', i); // выводит свой номер
+    };
+    shooters.push(shooter);
+  }
+  return shooters;
+}
+
+let army = makeArmy();
+army[0](); // стрелок выводит 0
+army[5]();
