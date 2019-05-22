@@ -46,7 +46,7 @@ arr[2]();  // выведет массив
 
 
 let calculator = {
-  // калькулятор
+  // калькулятор через объект
   read: function () {
     // метод read() запрашивает prompt два значения и сохраняет их как свойства объекта
     this.a = Number(prompt('введите первое число', 0));
@@ -114,7 +114,7 @@ ladderChaining.up().up().down().up().down().showStep(); // 1
 
 
 function Calculator() {
-  // калькулятор
+  // калькулятор через конструктор
   this.read = function () {
     // метод read() запрашивает prompt два значения и сохраняет их как свойства объекта
     this.a = Number(prompt('введите первое число', 0));
