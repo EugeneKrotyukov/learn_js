@@ -64,6 +64,51 @@ let calculator = {
   }
 };
 
-calculator.read();
+//calculator.read();
 console.log('сумма ', calculator.sum());
 console.log('произведение ', calculator.mul());
+
+
+
+let ladderStandart = {
+  // лестница
+  step: 0,
+  up: function() { 
+  // вверх по лестнице
+    this.step++;
+  },
+  down: function() { 
+  // вниз по лестнице
+    this.step--;
+  },
+  showStep: function() { 
+  // вывести текущую ступеньку
+    console.log('текущая ступенька стандарт', this.step);
+  }
+};
+ladderStandart.up();
+ladderStandart.up();
+ladderStandart.down();
+ladderStandart.showStep(); // 1
+
+
+let ladderChaining = {
+  // лестница методом чейнинг
+  step: 0,
+  up: function() { 
+  // вверх по лестнице
+    this.step++;
+    return this;
+  },
+  down: function() { 
+  // вниз по лестнице
+    this.step--;
+    return this;
+  },
+  showStep: function() { 
+  // вывести текущую ступеньку
+    console.log('текущая ступенька чейнинг', this.step);
+    return this;
+  }
+};
+ladderChaining.up().up().down().up().down().showStep(); // 1
