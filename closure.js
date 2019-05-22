@@ -169,9 +169,9 @@ function inArray(arr) {
   };
 }
 
-let arrForFilter = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+let arrForFilter = [10, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 console.log('inBeetween', filter(arrForFilter, inBeetween(3, 6))); // 3,4,5,6
-console.log('inArray', filter(arrForFilter, inArray([1, 2, 10]))); // 1,2
+console.log('inArray', filter(arrForFilter, inArray([1, 6, 10]))); // 1,6,10
 
 
 
