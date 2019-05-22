@@ -47,8 +47,6 @@ arr[2]();  // выведет массив
 
 let calculator = {
   // калькулятор
-  a: 0,
-  b: 0, 
   read: function () {
     // метод read() запрашивает prompt два значения и сохраняет их как свойства объекта
     this.a = Number(prompt('введите первое число', 0));
@@ -112,3 +110,28 @@ let ladderChaining = {
   }
 };
 ladderChaining.up().up().down().up().down().showStep(); // 1
+
+
+
+function Calculator() {
+  // калькулятор
+  this.read = function () {
+    // метод read() запрашивает prompt два значения и сохраняет их как свойства объекта
+    this.a = Number(prompt('введите первое число', 0));
+    this.b = Number(prompt('введите второе число', 0));
+  };
+  this.sum = function () {
+  	// метод sum() возвращает сумму этих двух значений
+    return this.a + this.b;
+  };
+  this.mul = function () {
+  	// метод mul() возвращает произведение этих двух значений
+    return this.a * this.b;
+  };
+}
+
+let calc = new Calculator();
+calc.read();
+console.log('сумма ', calc.sum());
+console.log('произведение ', calc.mul());
+
