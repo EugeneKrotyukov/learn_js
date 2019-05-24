@@ -115,6 +115,7 @@ ladderChaining.up().up().down().up().down().showStep(); // 1
 
 function Calculator() {
   // калькулятор через конструктор
+
   this.read = function () {
     // метод read() запрашивает prompt два значения и сохраняет их как свойства объекта
     this.a = Number(prompt('введите первое число', 0));
@@ -131,7 +132,25 @@ function Calculator() {
 }
 
 let calc = new Calculator();
-calc.read();
+//calc.read();
 console.log('сумма ', calc.sum());
 console.log('произведение ', calc.mul());
 
+
+
+function Accumulator(startingValue) {
+  // Аккумулятор через конструктор
+ 
+  // startingValue устанавливает начальное значение
+  // свойство value хранит текущее значение
+  this.value = startingValue;
+  
+  this.read = function () {
+    // запрашивает число и прибавляет к value
+    this.value += Number(prompt('Сколько добавлять будем?', 0));
+  };   
+}
+
+let accumulator = new Accumulator(1); // начальное значение 1
+//accumulator.read(); // прибавит ввод prompt к текущему значению
+console.log('Текущая сумма ', accumulator.value); // выведет текущее значение
