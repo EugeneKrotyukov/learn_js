@@ -158,35 +158,29 @@ console.log('Текущая сумма ', accumulator.value); // выведет 
 
 
 function Calculator2() {
-  
+  // конструктор Calculator, который создаёт расширяемые объекты-калькуляторы
   let methods = {
-    '+': function(a, b) {
-      return a + b;
-    },
-    '-': function(a, b) {
-      return a - b;
-    }
+    "-": function(a, b) { return a - b; },
+    "+": function(a, b) { return a + b; }
   };
 
-  this.calculator = function(str) {
-    let split = str.split('' );
-    let a = Number(split[0]);
-    let op = split[1];
-    let b = Number(split[2]);
+  this.calculate = function(str) {
+    let split = str.split(' '),
+      a = +split[0],
+      op = split[1],
+      b = +split[2]
     return methods[op](a, b);
-  };
+  }
 
   this.addMethod = function(name, func) {
+    // name имя операции 
+    // функция func(a,b), которая должна реализовывать операцию
     methods[name] = func;
   };
 }
 
-console.log('результат вычисления сложения ', calculator2('3 + 7'));
-console.log('результат вычисления вычитания ', calculator2('7 - 3'));
-
-let calc = new Calculator2;
-
-calc.addMethod("*", function(a, b) {return a * b;});
-calc.addMethod("/", function(a, b) {return a / b;});
-calc.addMethod("**", function(a, b) {return Math.pow(a, b);});
-console.log('результат вычисления ', calc.calculate("2 ** 3")); // 8
+let calc2 = new Calculator2;
+calc2.addMethod("*", function(a, b) { return a * b; });
+calc2.addMethod("/", function(a, b) { return a / b; });
+calc2.addMethod("**", function(a, b) { return Math.pow(a, b); });
+console.log('результат calc2 ', calc2.calculate("2 ** 3") ); // 8
