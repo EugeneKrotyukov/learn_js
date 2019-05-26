@@ -154,3 +154,39 @@ function Accumulator(startingValue) {
 let accumulator = new Accumulator(1); // начальное значение 1
 //accumulator.read(); // прибавит ввод prompt к текущему значению
 console.log('Текущая сумма ', accumulator.value); // выведет текущее значение
+
+
+
+function Calculator2() {
+  
+  let methods = {
+    '+': function(a, b) {
+      return a + b;
+    },
+    '-': function(a, b) {
+      return a - b;
+    }
+  };
+
+  this.calculator = function(str) {
+    let split = str.split('' );
+    let a = Number(split[0]);
+    let op = split[1];
+    let b = Number(split[2]);
+    return methods[op](a, b);
+  };
+
+  this.addMethod = function(name, func) {
+    methods[name] = func;
+  };
+}
+
+console.log('результат вычисления сложения ', calculator2('3 + 7'));
+console.log('результат вычисления вычитания ', calculator2('7 - 3'));
+
+let calc = new Calculator2;
+
+calc.addMethod("*", function(a, b) {return a * b;});
+calc.addMethod("/", function(a, b) {return a / b;});
+calc.addMethod("**", function(a, b) {return Math.pow(a, b);});
+console.log('результат вычисления ', calc.calculate("2 ** 3")); // 8
