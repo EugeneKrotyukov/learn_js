@@ -184,3 +184,41 @@ calc2.addMethod("*", function(a, b) { return a * b; });
 calc2.addMethod("/", function(a, b) { return a / b; });
 calc2.addMethod("**", function(a, b) { return Math.pow(a, b); });
 console.log('результат calc2 ', calc2.calculate("2 ** 3") ); // 8
+
+
+
+// Добавить get/set-свойства
+
+function User(fullName) {
+  this.fullName = fullName;
+  
+  Object.defineProperties(this, {
+
+    firstName: {
+      get: function() {
+        return this.fullName.split(' ')[0];
+      },
+      set: function(newFirstName) {
+        this.fullName = newFirstName + ' ' + this.lastName;
+      }
+    },
+
+    lastName: {
+      get: function() {
+        return this.fullName.split(' ')[1];
+      },
+      set: function(newLastName) {
+        this.fullName = this.firstName + ' ' + newLastName;
+      } 
+    }
+    
+  });
+}
+
+ 
+let vasya = new User("Василий Попкин");
+console.log('чтение firstName ', vasya.firstName ); // Василий
+console.log('чтение lastName ', vasya.lastName ); // Попкин
+vasya.firstName = 'Петр'; // запись в firstName
+vasya.lastName = 'Сидоров'; // запись в lastName
+console.log('чтение нового fullName ', vasya.fullName); // Василий Сидоров
