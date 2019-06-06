@@ -215,10 +215,31 @@ function User(fullName) {
   });
 }
 
- 
 let vasya = new User("Василий Попкин");
 console.log('чтение firstName ', vasya.firstName ); // Василий
 console.log('чтение lastName ', vasya.lastName ); // Попкин
 vasya.firstName = 'Петр'; // запись в firstName
 vasya.lastName = 'Сидоров'; // запись в lastName
 console.log('чтение нового fullName ', vasya.fullName); // Василий Сидоров
+
+
+
+//Статические и фабричные методы
+function Article() {
+  this.created = new Date();
+  // Подсчёт общего количества созданных объектов
+  Article.count++;
+  // Запоминание даты последнего созданного объекта
+  Article.last = this.created;
+  Article.showStats = function() {
+    console.log('Всего создано объектов Article ', Article.count);
+    console.log('Дата создания последнего объекта Article ', Article.last);
+  }
+}
+
+Article.count = 0; // начальное значение
+new Article();
+new Article();
+Article.showStats(); // Всего: 2, Последняя: (дата)
+new Article();
+Article.showStats(); // Всего: 3, Последняя: (дата)
