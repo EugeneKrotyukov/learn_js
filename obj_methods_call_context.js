@@ -243,3 +243,43 @@ new Article();
 Article.showStats(); // Всего: 2, Последняя: (дата)
 new Article();
 Article.showStats(); // Всего: 3, Последняя: (дата)
+
+
+
+// Явное указание this: "call", "apply"
+
+function sumArgs() {
+  // суммирует все свои аргументы
+  arguments.reduce = [].reduce; // скопируем reduce из массива
+  return arguments.reduce(function(a, b) {
+    return a + b; 
+  });
+}
+
+console.log('Сумма всех аргументов ', sumArgs(1, 2, 3)); // 6
+
+
+
+function applyAll(func) {
+  // applyAll(func, arg1, arg2...) => func(arg1, arg2...)
+  //передать в func все аргументы, начиная со второго, и возвратить результат
+  return func.apply(this, [].slice.call(arguments, 1));
+
+}
+
+function sum() {
+  // суммирует аргументы
+  return [].reduce.call(arguments, function(a, b) {
+    return a + b;
+  });
+}
+
+function mul() { 
+  // перемножает аргументы
+  return [].reduce.call(arguments, function(a, b) {
+    return a * b;
+  });
+}
+
+console.log('сумма ', applyAll(sum, 1, 2, 3) ); // 6
+console.log('произведение ', applyAll(mul, 2, 3, 4) ); // 24
