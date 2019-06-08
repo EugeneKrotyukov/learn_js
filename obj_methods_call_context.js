@@ -283,3 +283,30 @@ function mul() {
 
 console.log('сумма ', applyAll(sum, 1, 2, 3) ); // 6
 console.log('произведение ', applyAll(mul, 2, 3, 4) ); // 24
+
+
+
+// Декораторы
+
+function work(a) {
+  // work - произвольная функция, один аргумент
+  return a;
+}
+
+function makeLogging(f, log) {
+  // f - произвольная функция
+  // log - массив в который «логирует» аргументы f
+  function wrapper(a) {
+    log.push(a);
+    return f.call(this, a); // текущий контекст и аргументы передаются f
+  }
+  return wrapper;
+}
+
+let log = [];
+work = makeLogging(work, log);
+work(1); // 1, добавлено в log
+work(5); // 5, добавлено в log
+for (let i = 0; i < log.length; i++) {
+  console.log('Лог: ' + log[i]); // "Лог:1", затем "Лог:5"
+}
