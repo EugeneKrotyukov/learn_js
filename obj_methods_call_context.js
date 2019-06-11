@@ -288,14 +288,15 @@ console.log('произведение ', applyAll(mul, 2, 3, 4) ); // 24
 
 // Декораторы
 
-function work(a) {
+function workOneArg(a) {
   // work - произвольная функция, один аргумент
   return a;
 }
 
 function makeLogging(f, log) {
-  // f - произвольная функция
-  // log - массив в который «логирует» аргументы f
+  // сохраняет аргумент функции
+  // f - функция одного аргумента
+  // log - массив в который сохраняются аргументы f
   function wrapper(a) {
     log.push(a);
     return f.call(this, a); // текущий контекст и аргументы передаются f
@@ -303,10 +304,34 @@ function makeLogging(f, log) {
   return wrapper;
 }
 
-let log = [];
-work = makeLogging(work, log);
-work(1); // 1, добавлено в log
-work(5); // 5, добавлено в log
-for (let i = 0; i < log.length; i++) {
-  console.log('Лог: ' + log[i]); // "Лог:1", затем "Лог:5"
+let logOneArg = [];
+workOneArg = makeLogging(workOneArg, logOneArg);
+workOneArg(1); // 1, добавлено в log
+workOneArg(5); // 5, добавлено в log
+console.log('Лог функции одного аргумента: ' + logOneArg);
+
+
+
+function workManyArg(a, b) {
+  return (a + b);
 }
+
+function makeLoggingManyArg(f, log) {
+  // сохраняет имя функции, аргументы и результат
+  // f - функция многих аргументов
+  // log - массив в который сохраняются аргументы f
+  function wrapper() {
+    let result = f.apply(this, arguments); // текущий контекст и аргументы передаются f
+    log.push(f.name);
+    log.push([].slice.call(arguments)); // копируем методы массива для объекта arguments
+    log.push(result);
+    return result;
+  }
+  return wrapper;
+}
+
+let logManyArg = [];
+workManyArg = makeLoggingManyArg(workManyArg, logManyArg);
+workManyArg(1, 2);
+workManyArg(4, 5);
+console.log('Лог функции многих аргументов: ' + logManyArg);
