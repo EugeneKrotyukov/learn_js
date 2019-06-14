@@ -335,3 +335,43 @@ workManyArg = makeLoggingManyArg(workManyArg, logManyArg);
 workManyArg(1, 2);
 workManyArg(4, 5);
 console.log('Лог функции многих аргументов: ' + logManyArg);
+
+
+
+// Полиморфная функция
+function formatDate(date) {
+  // возвращает дату в формате dd.mm.yy
+    // arg - объект Date.
+    // arg- строку, yyyy-mm-dd
+    // arg- число секунд с 01.01.1970.
+    // arg- массив [гггг, мм, дд], месяц начинается с нуля
+
+  let options = {
+    year: '2-digit',
+    month: 'numeric',
+    day: 'numeric',
+    timezone: 'UTC'
+  };
+
+  if (toString.call(date) === '[object Date]') { // Для получения [[Class]] нужна именно внутренняя реализация toString стандартного объекта Object
+  
+  } else if (typeof(date) === 'string') {
+    // return date.split('-').reverse().join('.');
+  
+  } else if (typeof(date) === 'number') {
+  
+  } else if (toString.call(date) === '[object Array]') {
+    date[1] = date[1] + 1;
+  
+  } else {
+    console.log('Неизвестный формат данных');
+  }
+  
+  let newDate = new Date(date);
+  return newDate.toLocaleString("ru", options);
+}
+
+console.log('Date: ', formatDate(new Date(2011, 0, 1))); // 01.01.11
+console.log('string: ', formatDate('2011-01-01'));  // 01.01.11
+console.log('Milliseconds: ', formatDate(1407267771429)); // 05.08.14
+console.log('Array: ', formatDate([2011, 0, 1])); // 01.01.11
