@@ -375,3 +375,17 @@ console.log('Date: ', formatDate(new Date(2011, 0, 1))); // 01.01.11
 console.log('string: ', formatDate('2011-01-01'));  // 01.01.11
 console.log('Milliseconds: ', formatDate(1407267771429)); // 05.08.14
 console.log('Array: ', formatDate([2011, 0, 1])); // 01.01.11
+
+
+
+
+// Формат JSON, метод toJSON
+
+let leader = {
+  name: "Василий Иванович",
+  age: 35
+};
+leaderJSON = JSON.stringify(leader);
+console.log('Метод JSON.stringify() - преобразование из JS в JSON: ', leaderJSON);
+leaderJS = JSON.parse(leaderJSON);
+console.log('Метод JSON.parse() - преобразование из JSON в JS: ', leaderJSON);
