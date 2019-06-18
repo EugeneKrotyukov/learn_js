@@ -313,6 +313,7 @@ console.log('Лог функции одного аргумента: ' + logOneAr
 
 
 function workManyArg(a, b) {
+  // work - произвольная функция, два аргумента
   return (a + b);
 }
 
@@ -389,3 +390,26 @@ leaderJSON = JSON.stringify(leader);
 console.log('Метод JSON.stringify() - преобразование из JS в JSON: ', leaderJSON);
 leaderJS = JSON.parse(leaderJSON);
 console.log('Метод JSON.parse() - преобразование из JSON в JS: ', leaderJSON);
+
+
+
+// setTimeout и setInterval
+
+function delay(f, ms) {
+  // декаратор задерживающий вызов функции f на ms
+  return function() {
+    var savedThis = this;
+    var savedArgs = arguments;
+    setTimeout(function() {f.apply(savedThis, savedArgs);}, ms);
+  };
+}
+
+function f(x) {
+  // произвольная функция
+  console.log(x);
+}
+
+var f1000 = delay(f, 1000);
+var f1500 = delay(f, 2000);
+f1000('задержка вызова функции на 1с');
+f1500('задержка вызова функции на 2с');
