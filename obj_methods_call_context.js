@@ -413,3 +413,52 @@ var f1000 = delay(f, 1000);
 var f1500 = delay(f, 2000);
 f1000('задержка вызова функции на 1с');
 f1500('задержка вызова функции на 2с');
+
+
+
+function throttle(func, ms) {
+  // Декоратор throttle возвращает обёртку wrapper, 
+  // которая при первом вызове запускает func и 
+  // переходит в состояние «паузы» (isThrottled = true)
+  // В этом состоянии все новые вызовы запоминаются в замыкании через savedArgs/savedThis
+  // Далее, когда пройдёт таймаут ms миллисекунд – пауза будет снята, а wrapper – запущен с последними аргументами и контекстом
+
+  let isThrottled = false,
+    savedArgs,
+    savedThis;
+
+  function wrapper() {
+
+    if (isThrottled) {
+      savedArgs = arguments;
+      savedThis = this;
+      return;
+    }
+
+    func.apply(this, arguments);
+
+    isThrottled = true;
+
+    setTimeout(function() {
+      isThrottled = false;
+      if (savedArgs) {
+        wrapper.apply(savedThis, savedArgs);
+        savedArgs = savedThis = null;
+      }
+    }, ms);
+  }
+
+  return wrapper;
+}
+
+let ff = function(a) {
+  // произвольная функция
+  console.log(a)
+};
+
+// затормозить функцию до одного раза в 1000 мс
+let ff1000 = throttle(ff, 1000);
+
+ff1000(1); // выведет 1
+ff1000(2); // (тормозим, не прошло 1000 мс)
+ff1000(3); // (тормозим, не прошло 1000 мс)
