@@ -47,7 +47,7 @@ function CoffeeMachine(power, capacity) {
   // v2: при объявлении привязать getBoilTime к объекту через bind
   // v3: скопировать this во вспомогательную переменную let self = this;
 
-  this.getBoilTime = function() {
+  function getBoilTime() {
     // расчёт времени для кипячения (приватный метод)
     return waterAmount * WATER_HEAT_CAPACITY * 80 / power;
   };
@@ -107,8 +107,7 @@ console.log('в кофеварке сейчас ' + coffeeMachine.getWaterAmount
 
 coffeeMachine.setOnReady(function() {
   let amount = coffeeMachine.getWaterAmount();
-  let boilTime = coffeeMachine.getBoilTime();
-  console.log('Готов кофе: ' + amount + 'мл. Время приготовления: ' + boilTime);
+  console.log('кофе готов: ' + amount + ' мл');
 });
 
 coffeeMachine.run();
