@@ -1,4 +1,4 @@
-"use strict";
+
 
 /*
 ООП в функциональном стиле
@@ -33,41 +33,36 @@ console.log(user.getFullName()); // Петя Иванов
 
 
 function CoffeeMachine(power, capacity) {
-  // Конструктор кофеварок
-  // power – мощность кофеварки, Вт (приватное свойство)
-  // capacity - ёмкость кофеварки, мл (приватное свойство)
+  var waterAmount = 0;
 
-  let waterAmount = 0; // количество воды (приватное свойство)
-  
-  let WATER_HEAT_CAPACITY = 4200; // удельная теплоёмкость воды
+  var timerId;
 
-  let timeId;
-  
-  // v1: вызвать getBoilTime с явным указанием контекста: getBoilTime.call(this)
-  // v2: при объявлении привязать getBoilTime к объекту через bind
-  // v3: скопировать this во вспомогательную переменную let self = this;
+  this.isRunning = function() {
+    return !!timerId;
+  };
 
-  function getBoilTime() {
-    // расчёт времени для кипячения (приватный метод)
+  var WATER_HEAT_CAPACITY = 4200;
+
+  function getTimeToBoil() {
     return waterAmount * WATER_HEAT_CAPACITY * 80 / power;
-  };
+  }
 
-  this.setWaterAmount = function(amount) {
-    // метод для записи свойства waterAmount с проверкой
-    let tempWaterAmount = waterAmount;
-    tempWaterAmount += amount;
-
-    if (tempWaterAmount < 0) {
-      console.log('Значение должно быть положительным');
-    } else if (tempWaterAmount > capacity) {
-      console.log('Нельзя залить воды больше, чем ' + capacity);
-    } else {
-      waterAmount += amount;  
+ this.setWaterAmount = function(amount) {
+    if (amount < 0) {
+      throw new Error("Значение должно быть положительным");
     }
+    if (amount > capacity) {
+      throw new Error("Нельзя залить больше, чем " + capacity);
+    }
+
+    waterAmount = amount;
   };
 
-  this.getWaterAmount = function() {
-    // метод для чтения приватного свойства waterAmount
+  this.addWater = function(amount) {
+    this.setWaterAmount(waterAmount + amount);
+  };
+
+  this.getWaterAmount = function(amount) {
     return waterAmount;
   };
 
@@ -76,42 +71,36 @@ function CoffeeMachine(power, capacity) {
   };
 
   function onReady() {
-    // что делать по окончании процесса (приватный метод)
-    console.log('Кофе готов!');
-  };
+    alert( 'Кофе готов!' );
+  }
 
   this.setOnReady = function(newOnReady) {
-    // изменят onReady() в любой момент до её срабатывания
     onReady = newOnReady;
   };
 
   this.run = function() {
-    // запуск кофеварки (публичный метод)
-    timeId = setTimeout(onReady, getBoilTime());
-  };
-  
-  this.stop = function(){
-    // останавливать кипячение (публичный метод)
-    clearTimeout(timeId);
+    timerId = setTimeout(function() {
+      timerId = null;
+      onReady();
+    }, getTimeToBoil());
   };
 
 }
 
-// создать кофеварку
-let coffeeMachine = new CoffeeMachine(50000, 1000);
-console.log('мощность кофеварки ' + coffeeMachine.getPower() + ' Вт');
-coffeeMachine.setWaterAmount(200); // залить воды  
-console.log('в кофеварке сейчас ' + coffeeMachine.getWaterAmount() + ' мл воды');
-coffeeMachine.setWaterAmount(300); // залить воды  
-console.log('в кофеварке сейчас ' + coffeeMachine.getWaterAmount() + ' мл воды');
-
-coffeeMachine.setOnReady(function() {
-  let amount = coffeeMachine.getWaterAmount();
-  console.log('кофе готов: ' + amount + ' мл');
-});
-
+var coffeeMachine = new CoffeeMachine(20000, 500);
+coffeeMachine.setWaterAmount(100);
+coffeeMachine.addWater(200);
+console.log( 'До: ' + coffeeMachine.isRunning() ); // До: false
 coffeeMachine.run();
-//coffeeMachine.stop();
+console.log( 'В процессе: ' + coffeeMachine.isRunning() ); // В процессе: true
+coffeeMachine.setOnReady(function() {
+  console.log( "После: " + coffeeMachine.isRunning() ); // После: false
+});
+coffeeMachine.run();
+
+
+
+
 
 
 
