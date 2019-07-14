@@ -1,3 +1,5 @@
+"use strict";
+
 console.log('Object methods and call context')
 
 
