@@ -27,7 +27,7 @@ function User() {
 let user = new User();
 user.setFirstName("Петя");
 user.setSurname("Иванов");
-console.log(user.getFullName()); // Петя Иванов
+//console.log(user.getFullName()); // Петя Иванов
 
 
 
@@ -86,7 +86,7 @@ function CoffeeMachine(power, capacity) {
   };
 
 }
-
+/*
 let coffeeMachine = new CoffeeMachine(20000, 500);
 coffeeMachine.setWaterAmount(100);
 coffeeMachine.addWater(200);
@@ -97,7 +97,7 @@ coffeeMachine.setOnReady(function() {
   console.log( "После: " + coffeeMachine.isRunning() ); // После: false
 });
 coffeeMachine.run();
-
+*/
 
 
 /* 
@@ -158,7 +158,7 @@ function Machine(power) {
 }
 
 function CoffeeMachine2(power) {
-  Machine.apply(this, arguments);
+  Machine.apply(this, arguments); //наследование 
 
   let waterAmount = 0;
 
@@ -190,18 +190,101 @@ function CoffeeMachine2(power) {
   };
 
 }
-
+/*
 let coffeeMachine2 = new CoffeeMachine2(10000);
 coffeeMachine2.run(); // ошибка, кофеварка выключена!
 coffeeMachine.enable();
 coffeeMachine.run(); // ...Кофе готов!
-
+*/
 
 
 
 function Fridge(power) {
-  
+  Machine.apply(this, arguments); //наследование
+
+  var parentDisable = this.disable; //расширение метода родителя
+  this.disable = function() {
+    if (foods.length) {
+      throw new Error('Нельзя выключить. Внутри еда');
+    }
+    parentDisable(); 
+  };
+
+  let foods = [];
+
+  this.addFood = function(...items) {
+    if (!this._enabled) {
+      throw new Error("Холодильник выключен. Добавить еду нельзя");
+    }
+    
+    if (foods.length + items.length > this._power / 100) {
+      throw new Error("Нельзя добавить, не хватает мощности");
+    }
+    
+    items.forEach(function(item) {
+        foods.push(item);
+    });
+  };
+
+  this.removeFood = function(...items) {
+      items.forEach(function(item) {
+        let newFoods = foods.filter(function(food) {
+        return food !== item;
+        }); 
+        foods = newFoods;
+      });
+  };
+
+  this.filterFood = function(filter) {
+    // возвращает всю еду, для которой func(item) == true
+    return foods.filter(filter);
+  };
+
+  this.getFood = function() {
+    return foods; 
+  };
 }
+
+
+let fridge5 = new Fridge(700);
+fridge5.enable();
+fridge5.addFood('котлета');
+fridge5.addFood('сок', 'варенье');
+fridge5.removeFood('сок');
+fridge5.addFood('тарелка', 'вилка', 'нож');
+fridge5.removeFood('котлета', 'варенье', 'тарелка', 'вилка', 'нож');
+console.log(`В холодильнике находиться ${fridge5.getFood()}`);
+
+fridge5.addFood({
+  title: "котлета",
+  calories: 100
+},
+{
+  title: "сок",
+  calories: 30
+},
+{
+  title: "зелень",
+  calories: 10
+},
+{
+  title: "варенье",
+  calories: 150
+});
+
+console.log(`В холодильнике находиться ${fridge5.getFood().length} продукта`);
+fridge5.removeFood("нет такой еды");
+
+let dietItems = fridge5.filterFood(function(item) {
+  return item.calories < 50;
+});
+
+dietItems.forEach(function(item) {
+  console.log(item.title); // сок, зелень
+  fridge5.removeFood(item);
+});
+console.log(`В холодильнике находиться ${fridge5.getFood().length} продукта`);
+fridge5.disable(); // ошибка, в холодильнике есть еда
 
 
 
