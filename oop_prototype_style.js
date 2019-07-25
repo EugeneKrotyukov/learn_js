@@ -56,7 +56,7 @@ Function.prototype.defer = function(ms) {
 function fTest(a, b) {
   console.log('вывод результат через ms', a + b);
 }
-fTest.defer(1000)(1, 2); // выведет результат через 1 секунду
+//fTest.defer(1000)(1, 2); // выведет результат через 1 секунду
 
 
 
@@ -85,7 +85,7 @@ CoffeeMachine.prototype.setWaterAmount = function(amount) {
 
 let coffeeMachine = new CoffeeMachine(10000);
 coffeeMachine.setWaterAmount(50);
-coffeeMachine.run();
+//coffeeMachine.run();
 
 
 
@@ -137,3 +137,44 @@ Rabbit.prototype.run = function(speed) {
 // Готово, можно создавать объекты
 let rabbit = new Rabbit('Кроль');
 rabbit.run();
+
+
+
+
+function ClockFuncStyle(options) {
+  //  часы в функциональном стиле
+  let template = options.template;
+  let timer;
+
+  function render() {
+    let date = new Date();
+
+    let hours = date.getHours();
+    if (hours < 10) hours = '0' + hours;
+
+    let min = date.getMinutes();
+    if (min < 10) min = '0' + min;
+
+    let sec = date.getSeconds();
+    if (sec < 10) sec = '0' + sec;
+
+    let output = template.replace('h', hours).replace('m', min).replace('s', sec);
+
+    console.log('Часы в функциональном стиле: ', output);
+  }
+
+  this.stop = function() {
+    clearInterval(timer);
+  };
+
+  this.start = function() {
+    render();
+    timer = setInterval(render, 1000);
+  }
+}
+
+let clockFunc = new ClockFuncStyle({
+      template: 'h:m:s'
+    });
+clockFunc.start();
+clockFunc.stop();
