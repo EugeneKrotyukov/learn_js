@@ -4,9 +4,9 @@
 ООП в прототипном стиле
 */
 
+console.dir([1,2,3]);
 
 // Изменение встроенных прототипов
-
 
 String.prototype.repeat = function(times) {
 	// repeat: метод для многократного повторения строки
@@ -83,8 +83,57 @@ CoffeeMachine.prototype.setWaterAmount = function(amount) {
   this._waterAmount = amount;
 };
 
-
-
 let coffeeMachine = new CoffeeMachine(10000);
 coffeeMachine.setWaterAmount(50);
 coffeeMachine.run();
+
+
+
+
+// ПОЛНЫЙ КОД НАСЛЕДОВАНИЯ
+// rabbit -> Rabbit.prototype -> Animal.prototype
+// Rabbit.prototype.__proto__ = Animal.prototype; // не поддерживается в IE10-
+
+function Animal(name) {
+  // Конструктор Animal
+  this.name = name;
+  this.speed = 0;
+}
+
+Animal.prototype.stop = function() {
+  // Метод stop в прототип
+  this.speed = 0;
+  console.log(this.name + ' стоит');
+}
+
+Animal.prototype.run = function(speed) {
+	// Метод run в прототип
+  this.speed += speed;
+  console.log(this.name + ' бежит, скорость ' + this.speed);
+};
+
+
+function Rabbit(name) {
+  // Конструктор Rabbit
+  Animal.apply(this, arguments); //запустит Animal в контексте текущего объекта, со всеми аргументами, она выполнится и запишет в this всё, что нужно
+}
+
+// Наследование 
+Rabbit.prototype = Object.create(Animal.prototype); // сразу после объявления конструктора
+Rabbit.prototype.constructor = Rabbit; // сохраняем свойство constructor
+
+Rabbit.prototype.jump = function() {
+  // Методы Rabbit
+  this.speed++;
+  console.log(this.name + ' прыгает, скорость ' + this.speed);
+}
+
+Rabbit.prototype.run = function(speed) {
+  // расширение метода родителя
+  Animal.prototype.run.apply(this, arguments); // вызвать метод родителя, передав ему текущие аргументы
+  this.jump();
+ }
+
+// Готово, можно создавать объекты
+let rabbit = new Rabbit('Кроль');
+rabbit.run();
