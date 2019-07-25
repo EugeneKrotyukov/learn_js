@@ -173,8 +173,49 @@ function ClockFuncStyle(options) {
   }
 }
 
-let clockFunc = new ClockFuncStyle({
-      template: 'h:m:s'
-    });
+let clockFunc = new ClockFuncStyle({template: 'h:m:s'});
 clockFunc.start();
 clockFunc.stop();
+
+
+
+
+function ClockProtoStyle(options) {
+  //  часы в прототипном стиле
+  this._template = options.template;
+}
+
+ClockProtoStyle.prototype._render = function() {
+  let date = new Date();
+
+  let hours = date.getHours();
+  if (hours < 10) hours = '0' + hours;
+
+  let min = date.getMinutes();
+  if (min < 10) min = '0' + min;
+
+  let sec = date.getSeconds();
+  if (sec < 10) sec = '0' + sec;
+
+  let output =  this._template.replace('h', hours).replace('m', min).replace('s', sec);
+
+  console.log('Часы в прототипном стиле: ', output);
+}
+
+ClockProtoStyle.prototype.stop = function() {
+  clearInterval(this._timer);
+}
+
+ClockProtoStyle.prototype.start = function() {
+  this._render();
+  let self = this;
+  this._timer = setInterval(function() {
+  	self._render();
+  }, 1000);
+}
+
+let clockProto = new ClockProtoStyle({template: 'h:m:s'});
+clockProto.start();
+clockProto.stop();
+
+
