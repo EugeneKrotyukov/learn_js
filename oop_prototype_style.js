@@ -174,8 +174,8 @@ function ClockFuncStyle(options) {
 }
 
 let clockFunc = new ClockFuncStyle({template: 'h:m:s'});
-clockFunc.start();
-clockFunc.stop();
+//clockFunc.start();
+//clockFunc.stop();
 
 
 
@@ -215,7 +215,68 @@ ClockProtoStyle.prototype.start = function() {
 }
 
 let clockProto = new ClockProtoStyle({template: 'h:m:s'});
-clockProto.start();
-clockProto.stop();
+//clockProto.start();
+//clockProto.stop();
 
 
+
+class Clock {
+  // класс Clock. Выводит время каждую секунду
+  constructor({ template }) {
+    this.template = template;
+  }
+
+  render() {
+    let date = new Date();
+
+    let hours = date.getHours();
+    if (hours < 10) hours = '0' + hours;
+
+    let mins = date.getMinutes();
+    if (mins < 10) mins = '0' + mins;
+
+    let secs = date.getSeconds();
+    if (secs < 10) secs = '0' + secs;
+
+    let output = this.template
+      .replace('h', hours)
+      .replace('m', mins)
+      .replace('s', secs);
+
+    console.log(output);
+  }
+
+  stop() {
+    clearInterval(this.timer);
+  }
+
+  start() {
+    this.render();
+    this.timer = setInterval(() => this.render(), 1000);
+  }
+}
+
+
+// синтаксис «extends» устанавливает 2 прототипа:
+  // 1) Между "prototype" функций-конструкторов (для методов)
+  // 2) Между самими функциями-конструкторами (для статических методов).
+
+class ExtendedClock extends Clock {
+  // класс ExtendedClock наследуется от Clock
+  // добавляет параметр precision – количество миллисекунд между «тиками»
+  constructor(options) {
+    super(options);
+    let { precision=5000 } = options;
+    this.precision = precision;
+  }
+
+  start() {
+    this.render();
+    this.timer = setInterval(() => this.render(), this.precision);
+  }
+};
+
+
+let clock5000 = new ExtendedClock({template: 'h:m:s'});
+clock5000.start();
+clock5000.stop();
