@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+  <div data-widget-name="menu">Choose the genre</div>
+
+  <script>
+// elem.hasAttribute(name) – проверить на наличие.
+// elem.getAttribute(name) – получить значение.
+// elem.setAttribute(name, value) – установить значение.
+// elem.removeAttribute(name) – удалить атрибут.
+// elem.attributes – это коллекция всех атрибутов
+
+    let elem = document.querySelector('[data-widget-name]');// получаем элемент
+    console.log('Значение элемента: ', elem.dataset.widgetName); // читаем значение
+    console.log('Значение элемента: ', elem.getAttribute('data-widget-name')); // читаем значение
+  </script>
+
+</body>
+</html>

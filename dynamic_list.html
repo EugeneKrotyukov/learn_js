@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+  <h1>Создать список</h1>
+
+  <script>
+    // создание списка динамически
+    // Для каждого пункта:
+    // Запрашивайте содержимое пункта у пользователя с помощью prompt.
+    // Создавайте элемент <li> и добавляйте его к <ul>.
+    // Процесс прерывается, когда пользователь нажимает Esc или вводит пустую строку.
+
+    let ul = document.createElement('ul');
+    document.body.append(ul);
+    while (true) {
+      let data = prompt("Введите текст для элемента списка", "");
+      if (!data) {
+        break;
+      }
+      let li = document.createElement('li');
+      li.textContent = data;
+      ul.append(li);
+    }
+  </script>
+
+</body>
+</html>
