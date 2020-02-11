@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    td,
+    th {
+      border: 1px solid black;
+      padding: 3px;
+      text-align: center;
+    }
+
+    th {
+      font-weight: bold;
+      background-color: #E6E6E6;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="calendar"></div>
+
+  <script>
+    function createCalendar(elem, year, month) {
+      // создает календарь для заданного месяца в году и вставляет его в elem.
+      // Календарь должен быть таблицей, где неделя – это <tr>, а день – это <td>. 
+      // У таблицы должен быть заголовок с названиями дней недели, 
+      // каждый день – <th>, первым днём недели должен быть понедельник.
+      let date = new Date(year, month - 1);
+      let table = '<table><tr><th>пн</th><th>вт</th><th>ср</th><th>чт</th><th>пт</th><th>сб</th><th>вс</th></tr><tr>';
+      for (let i = 1; i < date.getDay(); i++) {
+        table += '<td></td>';
+      }
+      while(date.getMonth() == month - 1) {
+        table += '<td>' + date.getDate() + '</td>';
+        if(date.getDay() == 0) table += '</tr><tr>';
+        date.setDate(date.getDate() + 1);
+      }
+      table += '</tr></table>';
+      elem.innerHTML = table;
+    }
+
+    createCalendar(calendar, 2020, 2);
+  </script>
+</body>
+</html>
