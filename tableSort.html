@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Сортировка таблицы</title>
+  <style>
+  </style>
+</head>
+
+<body>
+   <table id="table">
+    <tr>
+      <th>Имя</th>
+      <th>Фамилия</th>
+      <th>Возраст</th>
+    </tr>
+    <tr>
+      <td>John</td>
+      <td>Smith</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>Pete</td>
+      <td>Brown</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td>Ann</td>
+      <td>Lee</td>
+      <td>5</td>
+    </tr>
+  </table>
+
+  <script>
+    // сортировка по столбцу "name"
+      // Получим все <tr>, как table.querySelectorAll('tr'), затем сделаем массив из них
+      // Первый TR (table.rows[0]) – это заголовок таблицы, поэтому мы берём .slice(1)
+      // Затем отсортируем их по содержимому в первом <td> (по имени)
+      // Теперь вставим узлы в правильном порядке .append(...sortedRows)
+        // Таблицы всегда имеют неявный элемент, 
+        // поэтому нам нужно получить его и вставить в него: простой table.append(...) потерпит неудачу.
+        // Обратите внимание: нам не нужно их удалять, просто «вставляем их заново», они автоматически покинут старое место
+        
+    let sortedRows = Array.from(table.rows)
+      .slice(1)
+      .sort((rowA, rowB) => rowA.cells[0].innerHTML > rowB.cells[0].innerHTML ? 1 : -1);
+    table.tBodies[0].append(...sortedRows);
+  </script>
+</body>
+</html>
