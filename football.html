@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Футбол</title>
+  <style>
+    #field {
+      position: relative;
+      width: 700px;
+      height: 500px;
+      border: 5px solid black;
+      background-color: #00FF00;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    #radiusLeft {
+      position: fixed;
+      top: 125px;
+      width: 100px;  /* ширина в два раза меньше высоты, иначе получится полуовал */
+      height: 200px;
+      border: 5px solid white;
+      border-radius: 0 100% 100% 0 / 0 50% 50% 0;
+      background: #00FF00;
+    }
+    #radiusRigth {
+      position: fixed;
+      top: 125px;
+      left: 602px;
+      width: 100px;  /* ширина в два раза меньше высоты, иначе получится полуовал */
+      height: 200px;
+      border: 5px solid white;
+      border-radius: 100% 0 0 100% / 50% 0 0 50%;
+      background: #00FF00;
+    }
+    #ball {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 40px;
+      height: 40px;
+      transition: all 1s;
+    }
+  </style>
+</head>
+
+<body style="height:2000px">
+
+  <div id="field">
+    <div id="radiusLeft"></div>
+    <div id="radiusRigth"></div>
+    <img src="https://ru.js.cx/clipart/ball.svg" id="ball">
+  </div>
+
+  <script>
+    let goal = 0;
+    field.onclick = function(event) {
+      // координаты поля относительно окна браузера
+      let fieldCoords = this.getBoundingClientRect();
+
+      // мяч имеет абсолютное позиционирование (position:absolute), поле - относительное (position:relative)
+      // таким образом, координаты мяча рассчитываются относительно внутреннего, верхнего левого угла поля
+      let ballCoords = {
+        top: event.clientY - fieldCoords.top - field.clientTop - ball.clientHeight / 2,
+        left: event.clientX - fieldCoords.left - field.clientLeft - ball.clientWidth / 2
+      };
+
+      // запрещаем пересекать верхнюю границу поля
+      if (ballCoords.top < 0) ballCoords.top = 0;
+
+      // запрещаем пересекать левую границу поля
+      if (ballCoords.left < 0) ballCoords.left = 0;
+
+
+      // // запрещаем пересекать правую границу поля
+      if (ballCoords.left + ball.clientWidth > field.clientWidth) {
+        ballCoords.left = field.clientWidth - ball.clientWidth;
+      }
+
+      // запрещаем пересекать нижнюю границу поля
+      if (ballCoords.top + ball.clientHeight > field.clientHeight) {
+        ballCoords.top = field.clientHeight - ball.clientHeight;
+      }
+
+      ball.style.left = ballCoords.left + 'px';
+      ball.style.top = ballCoords.top + 'px';
+      
+      console.log(goal + 1);
+      if (ballCoords.left <= 100 && ballCoords.top <= 250 && ballCoords.top >= 125) {
+        console.log(++goal);
+      }
+    
+
+    }
+  </script>
+
+</body>
+</html>
