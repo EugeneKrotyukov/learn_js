@@ -1,0 +1,83 @@
+#field {
+  position: relative;
+  width: 700px;
+  height: 500px;
+  border: 4px solid black;
+  background-color: #00FF00;
+  overflow: hidden;
+  cursor: pointer;
+}
+#gateLeft {
+  position: absolute;
+  top: 152px;
+  width: 100px;  /* ширина в два раза меньше высоты, иначе получится полуовал */
+  height: 200px;
+  border: 4px solid white;
+  border-radius: 0 100% 100% 0 / 0 50% 50% 0;
+  background: #00FF00;
+}
+#gateRigth {
+  position: absolute;
+  top: 152px;
+  left: 605px;
+  width: 100px;  /* ширина в два раза меньше высоты, иначе получится полуовал */
+  height: 200px;
+  border: 4px solid white;
+  border-radius: 100% 0 0 100% / 50% 0 0 50%;
+  background: #00FF00;
+}
+#lineV {
+  border-left: 4px solid white;
+  height: 100%;
+  position: absolute;
+  left: 50%;
+  top: 0px;
+}
+#center {
+  position: absolute;
+  border: 4px solid white;
+  height: 100px;
+  width: 100px;
+  top: 200px;
+  left: 298px;
+  border-radius: 50%;
+}
+#ball {
+  position: absolute;
+  left: 330px;
+  top: 230px;
+  width: 40px;
+  height: 40px;
+  transition: all 1s;
+}
+#scoreL {
+  display: inline-block;
+  background: red;
+  height: 40px;
+  width: 80px;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+}
+#scoreR {
+  display: inline-block;
+  background: blue;
+  height: 40px;
+  width: 80px;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+}
+#zerro {
+  display: inline-block;
+  width: 537px;
+}
+/*
+#lineH {
+  border-top: 2px solid red;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 50%; 
+}
+*/
